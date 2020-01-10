@@ -20,7 +20,7 @@ const signup = data => {
     return fetch(`${API_ROOT}/users`, {
         method: 'POST',
         headers,
-        body: JSON.stringify(data)
+        body: JSON.stringify({ user: data })
     })
         .then(resp => resp.json());
 }
@@ -53,10 +53,13 @@ const getMatchingUsersFromLeast = interests => {
 export const api = {
     auth: {
         login,
-        getCurrentUser
+        getCurrentUser,
     },
     matchedUsers: {
         getMatchingUsersFromGreatest,
-        getMatchingUsersFromLeast
+        getMatchingUsersFromLeast,
+    },
+    createUser: {
+        signup,
     }
 }
