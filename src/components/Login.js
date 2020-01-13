@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { api } from '../services/api';
 import { SIGN_IN as SignIn } from '../actions/auth'
+import { Link } from 'react-router-dom'
 
 
 const Login = props => {
@@ -50,13 +51,35 @@ const Login = props => {
         return null;
     }
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <input type="text" value={username} onChange={handleUsernameChange} placeholder="username..."/>
-                <input type="password" value={password} onChange={handlePasswordChange} placeholder="password..." />
-                <input type="submit"/>
-            </form>
-        </div>
+      <div className="uk-card uk-card-default uk-card-small uk-position-center">
+        <form onSubmit={handleSubmit}>
+          <fieldset className="uk-fieldset">
+            <legend className="legend uk-h1 uk-position-top-center uk-position-medium">
+              Login
+            </legend>
+            <input
+              className="uk-input uk-margin-top"
+              type="text"
+              value={username}
+              onChange={handleUsernameChange}
+              placeholder="username..."
+            />
+            <input
+              className="uk-input uk-margin"
+              type="password"
+              value={password}
+              onChange={handlePasswordChange}
+              placeholder="password..."
+            />
+            <div className="uk-flex">
+              <input className="uk-button uk-button-primary" type="submit" />
+              <Link to="/signup">
+                <p className="uk-margin-left">Don't have an Account?</p>
+              </Link>
+            </div>
+          </fieldset>
+        </form>
+      </div>
     );
 }
 

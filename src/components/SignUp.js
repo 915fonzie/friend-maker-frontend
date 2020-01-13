@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { api } from "../services/api";
 import { SIGN_IN as SignIn } from "../actions/auth";
+import Select from 'react-select'
+import './SignUp.css'
 
 const SignUp = props => {
     const token = localStorage.getItem("token");
@@ -11,11 +13,16 @@ const SignUp = props => {
             api.auth.getCurrentUser().then(user => {
                 if (!user.error) {
                     props.history.push("/");
+                    return null;
                 }
-            });
+            }); 
+        }
+        else {
+            handleFetchingInterests()
         }
     }, [props, token]);
-
+    
+    const [interests, setInterests] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [firstName, setFirstName] = useState("");
@@ -23,7 +30,8 @@ const SignUp = props => {
     const [email, setEmail] = useState("");
     const [bio, setBio] = useState("");
     const [friendBio, setFriendBio] = useState("");
-    
+
+    console.log(interests);
 
     const dispatch = useDispatch();
 
@@ -77,51 +85,77 @@ const SignUp = props => {
         });
     };
 
+    const handleFetchingInterests = async () => {
+        setInterests(await api.interests.getInterestsAvailable());
+    }
+
+    const handleSettingUpLabels = () => {
+        const labels = interests.map(interest => ({ label: interest, value: interest }))
+        setInterests(labels)
+    }
+
     if (token) {
         return null;
     }
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <input type="text" value={firstName} onChange={handleFirstNameChange} placeholder="First Name" />  
-                <input
-                    type="text"
-                    value={lastName}
-                    onChange={handleLastNameChange}
-                    placeholder="Last Name"
-                />
-                <input
-                    type="text"
-                    value={email}
-                    onChange={handleEmailChange}
-                    placeholder="Email"
-                />
-                <input
-                    type="text"
-                    value={username}
-                    onChange={handleUsernameChange}
-                    placeholder="username..."
-                />
-                <input
-                    type="password"
-                    value={password}
-                    onChange={handlePasswordChange}
-                    placeholder="password..."
-                />
-                <textarea
-                    value={bio}
-                    onChange={handleBioChange}
-                    placeholder="Tell us about yourself"
-                />
-                <textarea 
-                    value={friendBio}
-                    onChange={handleFriendBioChange}
-                    placeholder="What kind of friend(s) are you looking for"
-                />
-                <input type="submit" />
-            </form>
-        </div>
-  );
+      <div className="uk-card uk-card-default uk-card-medium uk-position-center uk-position-medium">
+        <form onSubmit={handleSubmit}>
+          <fieldset className="uk-fieldset">
+            <legend className="legend uk-h1 uk-position-top-center uk-position-medium">
+              Sign Up
+            </legend>
+            <input
+              className="uk-input uk-margin-top"
+              type="text"
+              value={firstName}
+              onChange={handleFirstNameChange}
+              placeholder="First Name"
+            />
+            <input
+              className="uk-input uk-margin-top"
+              type="text"
+              value={lastName}
+              onChange={handleLastNameChange}
+              placeholder="Last Name"
+            />
+            <input
+              className="uk-input uk-margin-top"
+              type="text"
+              value={email}
+              onChange={handleEmailChange}
+              placeholder="Email"
+            />
+            <input
+              className="uk-input uk-margin-top"
+              type="text"
+              value={username}
+              onChange={handleUsernameChange}
+              placeholder="username..."
+            />
+            <input
+              className="uk-input uk-margin-top"
+              type="password"
+              value={password}
+              onChange={handlePasswordChange}
+              placeholder="password..."
+            />
+            <textarea
+              className="uk-textarea uk-margin-top"
+              value={bio}
+              onChange={handleBioChange}
+              placeholder="Tell us about yourself (Optional)"
+            />
+            <textarea
+              className="uk-textarea uk-margin"
+              value={friendBio}
+              onChange={handleFriendBioChange}
+              placeholder="What kind of friend(s) are you looking for (Optional)"
+            />
+            <input className="uk-button uk-button-primary" type="submit" />
+          </fieldset>
+        </form>
+      </div>
+    );
 };
 
 export default SignUp;

@@ -36,7 +36,7 @@ const getCurrentUser = () => {
 
 const getMatchingUsersFromGreatest = interests => {
     return fetch(`${API_ROOT}/find_matches_by_greatest?filtered_interests=${interests}`, {
-        headers: headers
+        headers
     })
     .then(resp => resp.json())
 }
@@ -45,9 +45,16 @@ const getMatchingUsersFromLeast = interests => {
   return fetch(
     `${API_ROOT}/find_matches_by_least?filtered_interests=${interests}`,
     {
-      headers: headers
+      headers
     }
   ).then(resp => resp.json());
+};
+
+const getInterestsAvailable = async () => {
+    return await fetch(`${API_ROOT}/interests`, {
+        headers
+    })
+        .then(resp => resp.json())
 };
 
 export const api = {
@@ -61,5 +68,8 @@ export const api = {
     },
     createUser: {
         signup,
+    },
+    interests: {
+        getInterestsAvailable,
     }
 }
