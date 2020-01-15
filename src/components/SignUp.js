@@ -60,27 +60,38 @@ const SignUp = props => {
     const handleSubmit = async e => {
         e.preventDefault();
         let interest_list = selectedInterests.join(", ")
-        console.log(interest_list)
-        await api.createUser.signup({
-          first_name: firstName,
-          last_name: lastName,
-          email: email, username: username,
-          password: password,
-          bio: bio,
-            ideal_friend_bio: friendBio,
-          interest_list: interest_list,
-        })
-      
-        api.auth.login({ username, password }).then(resp => {
-            if (resp.error) {
-                console.log(resp.error);
-            } else {
-                console.log(resp);
-                dispatch(SignIn(resp));
-                localStorage.setItem("token", resp.jwt);
-                props.history.push("/search-for-friends");
-            }
-        });
+      console.log(selectedInterests.length)
+
+      if (selectedInterests.length >= 5) {
+                await api.createUser.signup({
+                  first_name: firstName,
+                  last_name: lastName,
+                  email: email,
+                  username: username,
+                  password: password,
+                  bio: bio,
+                  ideal_friend_bio: friendBio,
+                  interest_list: interest_list
+                });
+
+                api.auth.login({ username, password }).then(resp => {
+                  if (resp.error) {
+                    console.log(resp.error);
+                  } else {
+                    console.log(resp);
+                    dispatch(SignIn(resp));
+                    localStorage.setItem("token", resp.jwt);
+                    props.history.push("/search-for-friends");
+                  }
+                });
+      }
+      else {
+return (<div className="uk-alert-danger" data-uk-alert>
+  <button className="uk-alert-close" data-uk-close></button>
+  <p>
+Please Choose at least 5 interests  </p>
+</div>)  }
+
     };
 
     const handleSelectChange = selectedOption => {
@@ -163,6 +174,7 @@ const SignUp = props => {
                                 onSelectOptions={handleSelectChange}
                                 checked={[]}
                 />
+                <p>*Must choose at least 5 interests</p>
               </div>
               <div className="uk-margin">
                 <input className="uk-button uk-button-primary" type="submit" />

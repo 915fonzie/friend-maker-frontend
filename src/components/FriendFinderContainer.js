@@ -36,7 +36,7 @@ const FriendFinderContainer = props => {
   const handleUserInterests = () => {
     let temp = []
     for (let i = 0; i < userInterests.length; i++){
-      temp.push(<button onClick={e => handleFetchForFilteredUsers(e)} key={userInterests[i]}>{userInterests[i]}</button>)
+      temp.push(<button className="uk-button uk-button-default" onClick={e => handleFetchForFilteredUsers(e)} key={userInterests[i]}>{userInterests[i]}</button>)
     }
     return temp
   }

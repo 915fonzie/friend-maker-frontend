@@ -19,6 +19,7 @@ const Account = props => {
                 .getCurrentUserData(user.id)
                 .then(user => {
                   console.log(user);
+                  setUserId(user.id);
                   setUsername(user.username);
                   setFirstName(user.first_name);
                   setLastName(user.last_name);
@@ -34,6 +35,7 @@ const Account = props => {
       }
     }, [props, token]);
 
+    const [userId, setUserId] = useState('');
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [firstName, setFirstName] = useState("");
@@ -77,7 +79,8 @@ const Account = props => {
       e.preventDefault();
       let interest_list = selectedInterests.join(", ");
       console.log(interest_list);
-      await api.createUser.signup({
+      await api.updateUser.updateUserAccount({
+        id: userId,
         first_name: firstName,
         last_name: lastName,
         email: email,
@@ -101,7 +104,7 @@ const Account = props => {
         <div className="uk-card uk-card-default uk-card-large">
           <form onSubmit={handleSubmit}>
             <fieldset className="uk-fieldset uk-margin-top uk-margin">
-              <legend className="legend uk-h1 uk-text-center">Sign Up</legend>
+              <legend className="legend uk-h1 uk-text-center">Account</legend>
               <div className="uk-margin">
                 <input
                   className="uk-input"

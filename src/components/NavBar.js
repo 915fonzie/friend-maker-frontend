@@ -52,11 +52,24 @@ const NavBar = () => {
   }
 
   const handleSearchFriendsVisibility = () => {
-
+    if (token) {
+      return (
+        <li>
+          <Link to="/search-for-friends">
+            <span
+              className="uk-margin-small-right"
+              data-uk-icon="search"
+              data-uk-toggle="target: #offcanvas-slide"
+            ></span>
+            <span data-uk-toggle="target: #offcanvas-slide">Find Friends</span>
+          </Link>
+        </li>
+      );
+    }
   }
 
     return (
-      <div className="uk-margin-small-top">
+      <div className="uk-margin-small-top uk-flex">
         <button className="uk-button" data-uk-toggle="target: #offcanvas-slide">
           <span data-uk-navbar-toggle-icon></span>
           <span className="uk-margin-small-left">Menu</span>
@@ -81,7 +94,7 @@ const NavBar = () => {
                   <span data-uk-toggle="target: #offcanvas-slide">Home</span>
                 </Link>
               </li>
-
+              {handleSearchFriendsVisibility()}
               <ul className="uk-nav-sub">
                 {handleAccountVisibility()}
                 <li className="uk-parent">

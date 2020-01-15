@@ -62,6 +62,23 @@ const getCurrentUserData = id => {
     });
 }
 
+const updateUserAccount = data => {
+    return fetch(`${API_ROOT}/users/${data.id}`, {
+      method: "PATCH",
+      headers: headers(),
+      body: JSON.stringify({
+        first_name: data.first_name,
+        last_name: data.last_name,
+        username: data.username,
+        password: data.password,
+        email: data.email,
+        bio: data.bio,
+        ideal_friend_bio: data.ideal_friend_bio,
+        interest_list: data.interest_list
+      })
+    }).then(resp => resp.json());
+}
+
 
 export const api = {
     auth: {
@@ -77,5 +94,8 @@ export const api = {
     },
     getUserData: {
         getCurrentUserData
+    },
+    updateUser: {
+        updateUserAccount
     }
 }
