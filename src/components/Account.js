@@ -1,25 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { api } from "../services/api";
-import { SIGN_IN as SignIn } from "../actions/auth";
-import MultiSelectDropdown from "./MultiSelectDropdown"
-import { interests } from "./Interests"
-import './SignUp.css'
+import MultiSelectDropdown from "./MultiSelectDropdown";
+import { interests } from "./Interests";
+import "./SignUp.css";
 
-const SignUp = props => {
+const Account = props => {
     const token = localStorage.getItem("token");
 
     useEffect(() => {
-        if (token) {
-            api.auth.getCurrentUser().then(user => {
-                if (!user.error) {
-                    props.history.push("/");
-                    return null;
-                }
-            }); 
-        }
+      if (token) {
+        api.auth.getCurrentUser().then(user => {
+          if (user.error) {
+            props.history.push("/login");
+          }
+          else {
+              api.getUserData
+                .getCurrentUserData(user.id)
+                .then(user => {
+                  console.log(user);
+                  setUsername(user.username);
+                  setFirstName(user.first_name);
+                  setLastName(user.last_name);
+                  setEmail(user.email);
+                  setBio(user.bio);
+                  setFriendBio(user.ideal_friend_bio);
+                  setSelectedInterests(user.interest_list);
+                })
+            }
+        });
+      } else {
+        props.history.push("/login");
+      }
     }, [props, token]);
-    
+
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [firstName, setFirstName] = useState("");
@@ -32,63 +46,55 @@ const SignUp = props => {
     const dispatch = useDispatch();
 
     const handleUsernameChange = e => {
-        setUsername(e.target.value);
+      setUsername(e.target.value);
     };
 
     const handlePasswordChange = e => {
-        setPassword(e.target.value);
+      setPassword(e.target.value);
     };
     const handleFirstNameChange = e => {
-        setFirstName(e.target.value);
+      setFirstName(e.target.value);
     };
     const handleLastNameChange = e => {
-        setLastName(e.target.value);
+      setLastName(e.target.value);
     };
-    
+
     const handleEmailChange = e => {
-        setEmail(e.target.value);
+      setEmail(e.target.value);
     };
 
     const handleBioChange = e => {
-        setBio(e.target.value)
+      setBio(e.target.value);
     };
 
     const handleFriendBioChange = e => {
-        setFriendBio(e.target.value)
-    }
+      setFriendBio(e.target.value);
+    };
+
+    console.log(selectedInterests);
 
     const handleSubmit = async e => {
-        e.preventDefault();
-        let interest_list = selectedInterests.join(", ")
-        console.log(interest_list)
-        await api.createUser.signup({
-          first_name: firstName,
-          last_name: lastName,
-          email: email, username: username,
-          password: password,
-          bio: bio,
-            ideal_friend_bio: friendBio,
-          interest_list: interest_list,
-        })
-      
-        api.auth.login({ username, password }).then(resp => {
-            if (resp.error) {
-                console.log(resp.error);
-            } else {
-                console.log(resp);
-                dispatch(SignIn(resp));
-                localStorage.setItem("token", resp.jwt);
-                props.history.push("/");
-            }
-        });
+      e.preventDefault();
+      let interest_list = selectedInterests.join(", ");
+      console.log(interest_list);
+      await api.createUser.signup({
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        username: username,
+        password: password,
+        bio: bio,
+        ideal_friend_bio: friendBio,
+        interest_list: interest_list
+      });
     };
 
     const handleSelectChange = selectedOption => {
-        setSelectedInterests(selectedOption)
-    }
+      setSelectedInterests(selectedOption);
+    };
 
-    if (token) {
-        return null;
+    if (!token) {
+      return null;
     }
     return (
       <div className="uk-container uk-container-large">
@@ -161,7 +167,7 @@ const SignUp = props => {
                 <MultiSelectDropdown
                   options={interests}
                                 onSelectOptions={handleSelectChange}
-                                checked={[]}
+                                checked={selectedInterests}
                 />
               </div>
               <div className="uk-margin">
@@ -172,6 +178,6 @@ const SignUp = props => {
         </div>
       </div>
     );
-};
+}
 
-export default SignUp;
+export default Account;

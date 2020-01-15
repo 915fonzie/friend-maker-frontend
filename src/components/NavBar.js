@@ -39,7 +39,11 @@ const NavBar = () => {
           <span data-uk-navbar-toggle-icon></span>
           <span className="uk-margin-small-left">Menu</span>
         </button>
-        <div className="uk-offcanvas" id="offcanvas-slide" data-uk-offcanvas="overlay: true;">
+        <div
+          className="uk-offcanvas"
+          id="offcanvas-slide"
+          data-uk-offcanvas="overlay: true;"
+        >
           <div className="uk-offcanvas-bar uk-offcanvas uk-flex uk-flex-column">
             <button className="uk-offcanvas-close" data-uk-close></button>
             <ul className="uk-nav uk-nav-primary uk-nav-center uk-margin-auto-vertical">
@@ -50,8 +54,9 @@ const NavBar = () => {
                   <span
                     className="uk-margin-small-right"
                     data-uk-icon="home"
+                    data-uk-toggle="target: #offcanvas-slide"
                   ></span>
-                  <span>Home</span>
+                  <span data-uk-toggle="target: #offcanvas-slide">Home</span>
                 </Link>
               </li>
               <ul className="uk-nav-sub">
@@ -60,6 +65,7 @@ const NavBar = () => {
                     <span
                       className="uk-margin-small-right"
                       data-uk-icon="sign-out"
+                      data-uk-toggle="target: #offcanvas-slide"
                     ></span>
                     {handleLoggedInLoggedOut()}
                   </Link>

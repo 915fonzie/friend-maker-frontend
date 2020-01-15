@@ -17,6 +17,9 @@ const FriendFinderContainer = props => {
         }
     }, [props, token])
 
+    if (!token) {
+        return null;
+    }
     return (
       <div className="uk-margin uk-margin-left">
             <div className="uk-card uk-card-default uk-card-medium uk-position-center uk-position-medium">

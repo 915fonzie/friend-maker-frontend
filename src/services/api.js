@@ -50,12 +50,14 @@ const getMatchingUsersFromLeast = interests => {
   ).then(resp => resp.json());
 };
 
-const getInterestsAvailable = async () => {
-    return await fetch(`${API_ROOT}/interests`, {
-        headers
-    })
-        .then(resp => resp.json())
-};
+const getCurrentUserData = id => {
+    return fetch(`${API_ROOT}/users/${id}`, {
+      headers
+    }).then(resp => {
+      return resp.json();
+    });
+}
+
 
 export const api = {
     auth: {
@@ -69,7 +71,7 @@ export const api = {
     createUser: {
         signup,
     },
-    interests: {
-        getInterestsAvailable,
+    getUserData: {
+        getCurrentUserData
     }
 }
