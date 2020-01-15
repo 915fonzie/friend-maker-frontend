@@ -12,7 +12,7 @@ const Account = props => {
       if (token) {
         api.auth.getCurrentUser().then(user => {
           if (user.error) {
-            props.history.push("/login");
+            props.history.push("/");
           }
           else {
               api.getUserData
@@ -30,7 +30,7 @@ const Account = props => {
             }
         });
       } else {
-        props.history.push("/login");
+        props.history.push("/");
       }
     }, [props, token]);
 

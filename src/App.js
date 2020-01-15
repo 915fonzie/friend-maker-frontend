@@ -11,7 +11,7 @@ function App() {
   return (
     <Router>
       <Route path='/' render={(routerProps) => <NavBar {...routerProps}/>} />
-      <Route exact path='/' render={(routerProps) => <FriendFinderContainer {...routerProps}/>} />
+      <Route exact path='/search-for-friends' render={(routerProps) => <FriendFinderContainer {...routerProps}/>} />
       <Route exact path='/login' render={(routerProps) => <Login {...routerProps} />} />
       <Route exact path='/signup' render={(routerProps) => <SignUp {...routerProps} />} />
       <Route exact path='/account' render={(routerProps) => <Account {...routerProps}/>} />

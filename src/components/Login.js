@@ -8,20 +8,20 @@ import { Link } from 'react-router-dom'
 const Login = props => {
 
     const token = localStorage.getItem('token');
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const dispatch = useDispatch();
     
     useEffect(() => {
         if(token) {
             api.auth.getCurrentUser().then(user => {
-                if (!user.error) {
-                    props.history.push("/");
+              if (!user.error) {
+                  console.log("it hits")
+                    props.history.push("/search-for-friends");
                 }
             });
         }
-    },[props, token]);
-
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const dispatch = useDispatch();
+    },[props, token, dispatch]);
 
     const handleUsernameChange = e => {
         setUsername(e.target.value);
@@ -31,20 +31,22 @@ const Login = props => {
         setPassword(e.target.value);
     }
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault()
-        api.auth.login({ username, password })
+        await api.auth.login({ username, password })
             .then(resp => {
                 if (resp.error) {
                     console.log(resp.error)
                 }
                 else {
-                    console.log(resp)
-                    dispatch(SignIn(resp));
-                    localStorage.setItem("token", resp.jwt)
-                    props.history.push('/');
+                    console.log("it hits where it should")
+                  dispatch(SignIn(resp));
+                  localStorage.setItem("token", resp.jwt)
                 }
-        })
+            })
+        setTimeout(() => {
+                 props.history.push("/search-for-friends");
+          }, 800);
     }
     
     if (token) {

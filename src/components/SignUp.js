@@ -13,7 +13,7 @@ const SignUp = props => {
         if (token) {
             api.auth.getCurrentUser().then(user => {
                 if (!user.error) {
-                    props.history.push("/");
+                    props.history.push("/search-for-friends");
                     return null;
                 }
             }); 
@@ -78,7 +78,7 @@ const SignUp = props => {
                 console.log(resp);
                 dispatch(SignIn(resp));
                 localStorage.setItem("token", resp.jwt);
-                props.history.push("/");
+                props.history.push("/search-for-friends");
             }
         });
     };
