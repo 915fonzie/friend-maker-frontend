@@ -7,7 +7,7 @@ import { SIGN_OUT as SignOut } from "../actions/auth";
 const NavBar = () => {
  //create a <Link><div onClick={handleLogout}></div> </Link>
   const dispatch = useDispatch();
-  const token = () => localStorage.getItem('token')
+  const token = localStorage.getItem('token')
     const handleLogout = () => {
         dispatch(SignOut())
         localStorage.removeItem('token')
@@ -33,6 +33,27 @@ const NavBar = () => {
             );
         }
     }
+  
+  const handleAccountVisibility = () => {
+    if (token) {
+      return (
+        <li className="uk-parent">
+          <Link to="/account">
+            <span
+              className="uk-margin-small-right"
+              data-uk-icon="user"
+              data-uk-toggle="target: #offcanvas-slide"
+            ></span>
+            <span data-uk-toggle="target: #offcanvas-slide">Account</span>
+          </Link>
+        </li>
+      );
+    }
+  }
+
+  const handleSearchFriendsVisibility = () => {
+
+  }
 
     return (
       <div className="uk-margin-small-top">
@@ -60,7 +81,9 @@ const NavBar = () => {
                   <span data-uk-toggle="target: #offcanvas-slide">Home</span>
                 </Link>
               </li>
+
               <ul className="uk-nav-sub">
+                {handleAccountVisibility()}
                 <li className="uk-parent">
                   <Link to="/login">
                     <span

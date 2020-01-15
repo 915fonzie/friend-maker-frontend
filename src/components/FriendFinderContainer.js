@@ -1,10 +1,13 @@
 import React, { useState ,useEffect } from "react";
 import { api } from "../services/api";
+import FriendFinderCard from './FriendFinderCard'
 
 const FriendFinderContainer = props => {
   
   const token = localStorage.getItem("token");
   const [userInterests, setUserInterests] = useState('');
+  const [userId, setUserId] = useState('');
+  const [friendCards, setFriendCards] = useState('');
 
     useEffect(() => {
         if (token) {
@@ -14,9 +17,12 @@ const FriendFinderContainer = props => {
                 props.history.push("/login");
               }
               else {
-                api.getUserData.getCurrentUserData(user.id).then(user => {
-                  setUserInterests(user.interest_list)
-                });
+                setUserId(user.id);
+                api.getUserData
+                  .getCurrentUserData(user.id)
+                  .then(user => {
+                    setUserInterests(user.interest_list);
+                  })
               }
             });
         }
@@ -24,13 +30,32 @@ const FriendFinderContainer = props => {
             props.history.push("/login");
         }
     }, [props, token])
+  
+  
   console.log(userInterests)
   const handleUserInterests = () => {
     let temp = []
     for (let i = 0; i < userInterests.length; i++){
-      temp.push(<button key={userInterests[i]}>{userInterests[i]}</button>)
+      temp.push(<button onClick={e => handleFetchForFilteredUsers(e)} key={userInterests[i]}>{userInterests[i]}</button>)
     }
     return temp
+  }
+
+  const handleFetchForFilteredUsers = (e) => {
+    e.persist()
+    console.log(e.target.innerText)
+    api.matchedUsers.getMatchingUsersFromGreatest(e.target.innerText)
+    .then(resp => createFriendCards(resp.users));
+  }
+
+  const createFriendCards = users => {
+    let temp = []
+    for (let i = 0; i < users.length; i++){
+      if (users[i].id !== userId) {
+        temp.push(<FriendFinderCard key={users[i].id} user={users[i]}/>)
+      }
+    }
+    setFriendCards(temp);
   }
   
 
@@ -46,6 +71,9 @@ const FriendFinderContainer = props => {
                 {handleUserInterests()}
             </div>
           </div>
+        </div>
+        <div>
+          {friendCards}
         </div>
       </div>
     );

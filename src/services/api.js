@@ -35,8 +35,12 @@ const getCurrentUser = () => {
 };
 
 const getMatchingUsersFromGreatest = interests => {
-    return fetch(`${API_ROOT}/find_matches_by_greatest?filtered_interests=${interests}`, {
-        headers: headers()
+    return fetch(`${API_ROOT}/find_matches_by_greatest`, {
+        method: "POST",
+        headers: headers(),
+        body: JSON.stringify({
+            filtered_interests: interests
+        })
     })
     .then(resp => resp.json())
 }
