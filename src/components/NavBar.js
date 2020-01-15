@@ -6,13 +6,14 @@ import { SIGN_OUT as SignOut } from "../actions/auth";
 
 const NavBar = () => {
  //create a <Link><div onClick={handleLogout}></div> </Link>
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const token = () => localStorage.getItem('token')
     const handleLogout = () => {
         dispatch(SignOut())
         localStorage.removeItem('token')
     }
     const handleLoggedInLoggedOut = () => {
-        if (localStorage.getItem("token")) {
+        if (token) {
             return (
               <span
                 onClick={handleLogout}

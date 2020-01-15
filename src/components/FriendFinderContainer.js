@@ -15,7 +15,7 @@ const FriendFinderContainer = props => {
               }
               else {
                 api.getUserData.getCurrentUserData(user.id).then(user => {
-                  setUserInterests(user)
+                  setUserInterests(user.interest_list)
                 });
               }
             });
@@ -25,13 +25,28 @@ const FriendFinderContainer = props => {
         }
     }, [props, token])
   console.log(userInterests)
+  const handleUserInterests = () => {
+    let temp = []
+    for (let i = 0; i < userInterests.length; i++){
+      temp.push(<button key={userInterests[i]}>{userInterests[i]}</button>)
+    }
+    return temp
+  }
+  
 
     if (!token) {
         return null;
     }
     return (
       <div className="uk-container uk-margin">
-        <p>THis is a tester</p>
+        <div className="uk-inline">
+          <button className="uk-button uk-button-default">Filter</button>
+          <div data-uk-drop="mode: click">
+            <div className="uk-card uk-card-body uk-card-default">
+                {handleUserInterests()}
+            </div>
+          </div>
+        </div>
       </div>
     );
 
