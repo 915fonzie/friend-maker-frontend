@@ -2,16 +2,18 @@ import React from 'react'
 
 const FriendModal = props => {
 
+    const { interest_list, username, bio, ideal_friend_bio } = props.userData.user
+
         const handleInterestsLabels = () => {
-          let temp = [];
-          for (let i = 0; i < props.userData.user.interest_list.length; i++) {
-            temp.push(
+          let allInterests = [];
+          for (let i = 0; i < interest_list.length; i++) {
+            allInterests.push(
               <span className="uk-label uk-margin-right" key={i}>
-                {props.userData.user.interest_list[i]}
+                {interest_list[i]}
               </span>
             );
           }
-          return temp;
+          return allInterests;
         };
     if (!props) {
         return null;
@@ -25,10 +27,10 @@ const FriendModal = props => {
             type="button"
             data-uk-close
           ></button>
-          <h1>{props.userData.user.username}</h1>
+          <h1>{username}</h1>
           <div>{handleInterestsLabels()}</div>
-          <p>Bio: {props.userData.user.bio}</p>
-          <p>Ideal Friend: {props.userData.user.ideal_friend_bio}</p>
+          <p>Bio: {bio}</p>
+          <p>Ideal Friend: {ideal_friend_bio}</p>
           <button className="uk-button uk-button-primary">Connect</button>
         </div>
       </div>
