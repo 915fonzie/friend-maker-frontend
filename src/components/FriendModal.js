@@ -4,10 +4,10 @@ const FriendModal = props => {
 
         const handleInterestsLabels = () => {
           let temp = [];
-          for (let i = 0; i < props.user.interest_list.length; i++) {
+          for (let i = 0; i < props.userData.user.interest_list.length; i++) {
             temp.push(
               <span className="uk-label uk-margin-right" key={i}>
-                {props.user.interest_list[i]}
+                {props.userData.user.interest_list[i]}
               </span>
             );
           }
@@ -22,10 +22,10 @@ const FriendModal = props => {
             type="button"
             data-uk-close
           ></button>
-          <h1>{props.user.username}</h1>
+          <h1>{props.userData.user.username}</h1>
           <div>{handleInterestsLabels()}</div>
-          <p>Bio: {props.user.bio}</p>
-          <p>Ideal Friend: {props.user.ideal_friend_bio}</p>
+          <p>Bio: {props.userData.user.bio}</p>
+          <p>Ideal Friend: {props.userData.user.ideal_friend_bio}</p>
           <button className="uk-button uk-button-primary">Connect</button>
         </div>
       </div>

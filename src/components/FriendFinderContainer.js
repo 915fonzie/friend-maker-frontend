@@ -1,4 +1,5 @@
-import React, { useState ,useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector } from 'react-redux'
 import { api } from "../services/api";
 import FriendFinderCard from './FriendFinderCard'
 import FriendModal from './FriendModal'
@@ -9,6 +10,8 @@ const FriendFinderContainer = props => {
   const [userInterests, setUserInterests] = useState('');
   const [userId, setUserId] = useState('');
   const [friendCards, setFriendCards] = useState('');
+  const clicked_user = useSelector(state => state.friends.clicked_user_data)
+  console.log()
 
     useEffect(() => {
         if (token) {
@@ -75,7 +78,7 @@ const FriendFinderContainer = props => {
         </div>
         <div>
           {friendCards}
-          <FriendModal />
+          <FriendModal userData={clicked_user}/>
         </div>
       </div>
     );
