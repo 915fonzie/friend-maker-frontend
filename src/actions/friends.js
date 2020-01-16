@@ -1,6 +1,6 @@
-export const CLICKED_USER = userId => {
+export const CLICKED_USER = userData => {
   return {
       type: "CLICKED_USER",
-      current_user: userId
+      clicked_user_data: userData
   };
 };

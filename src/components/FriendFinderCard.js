@@ -1,6 +1,10 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { CLICKED_USER as ClickedUser } from "../actions/friends";
 
 const FriendFinderCard = props => {
+
+    const dispatch = useDispatch();
 
     const handleInterestsLabels = () => {
         let temp = []
@@ -10,9 +14,13 @@ const FriendFinderCard = props => {
         return temp
     }
 
+    const handleClickedUser = () => {
+        dispatch(ClickedUser(props))
+    }
+
     return (
       <div className="uk-margin-top">
-        <div className="uk-card uk-card-body uk-card-default" data-uk-toggle="target: #modal-center">
+            <div className="uk-card uk-card-body uk-card-default" data-uk-toggle="target: #modal-center" onClick={handleClickedUser}>
           <p>{props.user.username}</p>
           <p>Interests:</p>
           <div className="uk-margin">{handleInterestsLabels()}</div>
