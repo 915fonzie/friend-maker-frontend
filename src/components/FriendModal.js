@@ -13,6 +13,9 @@ const FriendModal = props => {
           }
           return temp;
         };
+    if (!props) {
+        return null;
+    }
 
     return (
       <div id="modal-center" className="uk-flex-top" data-uk-modal>
