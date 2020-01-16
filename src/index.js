@@ -8,7 +8,11 @@ import { Provider } from 'react-redux'
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <div
+      className="background"
+    >
+      <App />
+    </div>
   </Provider>,
   document.getElementById("root")
 );

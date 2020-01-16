@@ -17,20 +17,6 @@ const FriendFinderCard = props => {
           <p>Interests:</p>
           <div className="uk-margin">{handleInterestsLabels()}</div>
         </div>
-        <div id="modal-center" className="uk-flex-top" data-uk-modal>
-          <div className="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
-            <button
-              className="uk-modal-close-default"
-              type="button"
-              data-uk-close
-            ></button>
-                    <h1>{props.user.username}</h1>
-                    <div>{handleInterestsLabels()}</div>
-                    <p>Bio: {props.user.bio}</p>
-                    <p>Ideal Friend: {props.user.ideal_friends_bio}</p>
-                    <button className="uk-button uk-button-primary">Connect</button>
-          </div>
-        </div>
       </div>
     );
 }

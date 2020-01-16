@@ -1,6 +1,7 @@
 import React, { useState ,useEffect } from "react";
 import { api } from "../services/api";
 import FriendFinderCard from './FriendFinderCard'
+import FriendModal from './FriendModal'
 
 const FriendFinderContainer = props => {
   
@@ -65,7 +66,7 @@ const FriendFinderContainer = props => {
     return (
       <div className="uk-container uk-margin">
         <div className="uk-inline">
-          <button className="uk-button uk-button-default">Filter</button>
+          <button className="uk-button uk-button-default uk-light">Filter</button>
           <div data-uk-drop="mode: click">
             <div className="uk-card uk-card-body uk-card-default">
                 {handleUserInterests()}
@@ -74,6 +75,7 @@ const FriendFinderContainer = props => {
         </div>
         <div>
           {friendCards}
+          <FriendModal />
         </div>
       </div>
     );

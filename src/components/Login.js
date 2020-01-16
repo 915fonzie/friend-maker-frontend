@@ -18,7 +18,10 @@ const Login = props => {
               if (!user.error) {
                   console.log("it hits")
                     props.history.push("/search-for-friends");
-                }
+              }
+              else {
+                dispatch(SignIn(user))
+              }
             });
         }
     },[props, token, dispatch]);
