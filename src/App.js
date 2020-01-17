@@ -6,11 +6,13 @@ import FriendFinderContainer from './components/FriendFinderContainer';
 import SignUp from './components/SignUp'
 import NavBar from './components/NavBar';
 import Account from './components/Account'
+import Home from './components/Home'
 
 function App() {
   return (
       <Router>
-        <Route path="/" render={routerProps => <NavBar {...routerProps} />} />
+      <Route path="/" render={routerProps => <NavBar {...routerProps} />} />
+      <Route exact path="/" render={routerProps => <Home {...routerProps} />} />
         <Route
           exact
           path="/search-for-friends"
