@@ -10,6 +10,7 @@ const FriendFinderContainer = props => {
   const [userInterests, setUserInterests] = useState('');
   const [userId, setUserId] = useState('');
   const [friendCards, setFriendCards] = useState('');
+  const [selectedInterests, setSelectedInterests] = useState([])
   const clicked_user = useSelector(state => state.friends.clicked_user_data)
 
     useEffect(() => {
@@ -33,7 +34,8 @@ const FriendFinderContainer = props => {
                       }
                     }
                     setUserInterests(temp);
-                    handleFirstFetch(user.interest_list[0])
+                    setSelectedInterests([user.interest_list[0]])
+                    handleFirstFetch(user.interest_list[0], user.id)
                   })
               }
             });
@@ -43,10 +45,10 @@ const FriendFinderContainer = props => {
         }
     }, [props, token])
   
-  const handleFirstFetch = interest => {
+  const handleFirstFetch = (interest, id) => {
     api.matchedUsers.getMatchingUsersFromGreatest(interest)
       .then(resp => {
-      createFriendCards(resp.users);
+      createFriendCards(resp.users, id);
     })
   }
   const handleUserInterests = () => {
@@ -60,14 +62,15 @@ const FriendFinderContainer = props => {
   const handleFetchForFilteredUsers = (e) => {
     e.persist()
     handleToggleBetweenFilterButtons(e.target.id)
-    api.matchedUsers.getMatchingUsersFromGreatest(e.target.innerText)
+    console.log(selectedInterests)
+    api.matchedUsers.getMatchingUsersFromGreatest(selectedInterests)
       .then(resp => createFriendCards(resp.users));
   }
 
-  const createFriendCards = users => {
+  const createFriendCards = (users, id) => {
     let temp = []
     for (let i = 0; i < users.length; i++){
-      if (users[i].id !== userId) {
+      if (users[i].id !== userId && users[i].id !== id) {
         temp.push(<FriendFinderCard key={users[i].id} user={users[i]}/>)
       }
     }
@@ -77,9 +80,13 @@ const FriendFinderContainer = props => {
   const handleToggleBetweenFilterButtons = id => {
     if (userInterests[id].clicked === "uk-button-default") {
       userInterests[id].clicked = "uk-button-primary"
+      selectedInterests.push(userInterests[id].interest)
+      // setSelectedInterests([...selectedInterests, userInterests[id].interest])
     }
     else{
       userInterests[id].clicked = "uk-button-default"
+      let index = selectedInterests.indexOf(userInterests[id].interest)
+      selectedInterests.splice(index, 1)
     }
   }
   
