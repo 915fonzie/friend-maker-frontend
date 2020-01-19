@@ -2055,9 +2055,18 @@ select.uk-form-width-xsmall {
  ========================================================================== */
 .uk-button-small {
   padding: 0 15px;
+  margin: 2.5px;
   line-height: 28px;
   font-size: 0.875rem;
+  border-radius: 1.5rem;
+    transition: 0.1s ease-in-out;
+  transition-property: color, background-color, border-color;
 }
+
+.uk-button-small:focus {
+  outline: none;
+}
+
 .uk-button-large {
   padding: 0 40px;
   line-height: 53px;
