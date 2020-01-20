@@ -1,6 +1,14 @@
 import React from 'react'
 
 const Home = props => {
+
+    const token = localStorage.getItem('token');
+
+    if (token) {
+        props.history.push('/search-for-friends');
+        return null;
+    }
+
     return (
       <div className="uk-margin uk-padding">
         <div

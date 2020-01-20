@@ -20,6 +20,7 @@ const FriendFinderContainer = props => {
             api.auth.getCurrentUser().then(user => {
               if (user.error) {
                 props.history.push("/login");
+                localStorage.removeItem('token');
               }
               else {
                 setUserId(user.id);

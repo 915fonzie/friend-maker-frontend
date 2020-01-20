@@ -18,9 +18,10 @@ const Login = props => {
               if (!user.error) {
                   console.log("it hits")
                     props.history.push("/search-for-friends");
+                    dispatch(SignIn(user));
               }
               else {
-                dispatch(SignIn(user))
+                console.log(user.error)
               }
             });
         }
@@ -47,9 +48,7 @@ const Login = props => {
                   localStorage.setItem("token", resp.jwt)
                 }
             })
-        setTimeout(() => {
-                 props.history.push("/search-for-friends");
-          }, 800);
+              props.history.push("/search-for-friends");
     }
     
     if (token) {
