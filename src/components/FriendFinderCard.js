@@ -19,8 +19,15 @@ const FriendFinderCard = props => {
     }
 
     return (
-      <div className="uk-margin-top">
-            <div className="uk-card uk-card-body uk-card-default" data-uk-toggle="target: #modal-center" onClick={handleClickedUser}>
+      <div
+        className="uk-margin-top"
+        uk-scrollspy="cls: uk-animation-scale-up; delay: 300; repeat: false"
+      >
+        <div
+          className="uk-card uk-card-body uk-card-default"
+          data-uk-toggle="target: #modal-center"
+          onClick={handleClickedUser}
+        >
           <p>{props.user.username}</p>
           <p>Interests:</p>
           <div className="uk-margin">{handleInterestsLabels()}</div>
