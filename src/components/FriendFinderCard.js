@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { CLICKED_USER as ClickedUser } from "../actions/friends";
+import { motion } from 'framer-motion'
 
 const FriendFinderCard = props => {
 
@@ -23,15 +24,17 @@ const FriendFinderCard = props => {
         className="uk-margin-top"
         uk-scrollspy="cls: uk-animation-scale-up; delay: 300; repeat: false"
       >
-        <div
+        <motion.div
           className="uk-card uk-card-body uk-card-default"
           data-uk-toggle="target: #modal-center"
           onClick={handleClickedUser}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.9 }}
         >
           <p>{props.user.username}</p>
           <p>Interests:</p>
           <div className="uk-margin">{handleInterestsLabels()}</div>
-        </div>
+        </motion.div>
       </div>
     );
 }
