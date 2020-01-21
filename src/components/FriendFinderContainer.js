@@ -12,7 +12,7 @@ const FriendFinderContainer = props => {
   const [friendCards, setFriendCards] = useState('');
   const [selectedInterests, setSelectedInterests] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState('');
-  const [filterSwitch, setFilterSwitch] = useState(false);
+  const [filterSwitch, setFilterSwitch] = useState([false]);
   const clicked_user = useSelector(state => state.friends.clicked_user_data);
 
     useEffect(() => {
@@ -54,29 +54,26 @@ const FriendFinderContainer = props => {
   
   const handleFilterSwitch = e => {
     e.persist()
-    console.log(e)
     handleFilterSelectToggle(parseInt(e.target.id))
   }
   
   const handleFilterSelectToggle = id => {
-    console.log(id)
     if (id === 0) {
-      console.log(selectedFilter[id].clicked)
       selectedFilter[0].clicked = "uk-button-primary";
       selectedFilter[1].clicked = "uk-button-default";
-      handleFilterForGreatest()
+      filterSwitch[0] = false;
       handleFilterChangeFetch()
     }
     if (id === 1) {
       selectedFilter[1].clicked = "uk-button-primary";
       selectedFilter[0].clicked = "uk-button-default";
-      handleFilterForLeast()
+      filterSwitch[0] = true;
       handleFilterChangeFetch()
     }
   }
 
   const handleFilterChangeFetch = () => {
-        if (filterSwitch === false) {
+        if (filterSwitch[0] === false) {
           api.matchedUsers
             .getMatchingUsersFromGreatest(selectedInterests)
             .then(resp => createFriendCards(resp.users));
@@ -86,9 +83,6 @@ const FriendFinderContainer = props => {
             .then(resp => createFriendCards(resp.users));
         }
   }
-
-  const handleFilterForGreatest = () => setFilterSwitch(false);
-  const handleFilterForLeast = () => setFilterSwitch(true);
 
   const handleUserFilters = () => {
     let temp = []
@@ -181,7 +175,7 @@ const FriendFinderContainer = props => {
             <div className="uk-card uk-card-body uk-card-default">
               <div className="uk-text-center">
                 Filter users that have:
-                <div className="">
+                <div>
                   {handleUserFilters()}
                 </div>
               </div>
