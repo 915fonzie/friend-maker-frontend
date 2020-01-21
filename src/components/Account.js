@@ -13,6 +13,7 @@ const Account = props => {
         api.auth.getCurrentUser().then(user => {
           if (user.error) {
             props.history.push("/");
+            localStorage.removeItem('token');
           }
           else {
               api.getUserData
