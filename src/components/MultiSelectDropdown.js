@@ -24,6 +24,7 @@ export class MultiSelectDropDown extends Component {
     let checkedValue = this.state.checked;
     if (condition) {
       checkedValue.push(value);
+      this.refs.searchInput.value = '';
     } else {
       let index = checkedValue.indexOf(value);
       checkedValue.splice(index, 1);
@@ -91,6 +92,7 @@ export class MultiSelectDropDown extends Component {
           name="Search"
           placeholder="Search Interests"
           className="input-box"
+          ref="searchInput"
           onChange={e => this.searchFun(e)}
         />
         <div className="search-result">
