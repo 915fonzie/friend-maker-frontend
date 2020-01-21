@@ -1968,13 +1968,24 @@ select.uk-form-width-xsmall {
 .uk-button-default {
   background-color: transparent;
   color: #333;
-  border: 1px solid #e5e5e5;
 }
 /* Hover + Focus */
 .uk-button-default:hover,
 .uk-button-default:focus {
   background-color: transparent;
   color: #333;
+  border-color: #b2b2b2;
+}
+
+.uk-button-third {
+  background-color: rgb(48, 35,125 );
+  color: #333;
+}
+/* Hover + Focus */
+.uk-button-third:hover,
+.uk-button-third:focus {
+  background-color: rgb(48, 35, 160);
+  color: #fff;
   border-color: #b2b2b2;
 }
 /* OnClick + Active */

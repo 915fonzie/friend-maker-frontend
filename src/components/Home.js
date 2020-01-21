@@ -16,19 +16,19 @@ const Home = props => {
           style={{
             backgroundImage: "url(https://i.imgur.com/ZCBI4nj.jpg)",
             backgroundSize: "100vh",
-            minHeight: "68vh",
+            maxHeight: "68vh",
             width: "100vh",
-            minWidth: "50vh"
+            maxWidth: "100vh"
           }}
         >
-          <h3 className="uk-card-title uk-text-center uk-padding">
-            Welcome to Friend Connect
+          <h3 className="uk-card-title uk-text-center">
+            <img className="uk-img uk-pos" src="https://i.imgur.com/V2RM3Xq.png"></img>
           </h3>
           <div className="uk-flex uk-position-bottom-center uk-margin-bottom">
-            <button className="uk-button uk-button-primary uk-margin-right">
+            <button className="uk-button uk-button-third uk-margin-right uk-light" onClick={() => props.history.push('/login')}>
               Login
             </button>
-                    <button className="uk-button uk-margin-left">Sign Up</button>
+            <button className="uk-button uk-button-third uk-margin-left uk-light" onClick={() => props.history.push('/signup')}>Sign Up</button>
           </div>
         </div>
       </div>

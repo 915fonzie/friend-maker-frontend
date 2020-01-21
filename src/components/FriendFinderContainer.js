@@ -173,8 +173,9 @@ const FriendFinderContainer = props => {
     return (
       <div className="uk-container uk-margin">
         <div className="uk-inline">
-          <button className="uk-button uk-button-default uk-light">
-            Filter
+          <button className="uk-button uk-button-secondary uk-light">
+            <span data-uk-icon="settings"></span>
+            <span> Filter</span>
           </button>
           <div data-uk-drop="mode: click">
             <div className="uk-card uk-card-body uk-card-default">
