@@ -22,7 +22,7 @@ const Home = props => {
           }}
         >
           <h3 className="uk-card-title uk-text-center">
-            <img className="uk-img uk-pos" src="https://i.imgur.com/V2RM3Xq.png"></img>
+            <img className="uk-img uk-pos" src="https://i.imgur.com/V2RM3Xq.png" alt="homepage welcome"></img>
           </h3>
           <div className="uk-flex uk-position-bottom-center uk-margin-bottom">
             <button className="uk-button uk-button-third uk-margin-right uk-light" onClick={() => props.history.push('/login')}>

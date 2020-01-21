@@ -12,7 +12,7 @@ const FriendFinderContainer = props => {
   const [friendCards, setFriendCards] = useState('');
   const [selectedInterests, setSelectedInterests] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState('');
-  const [filterSwitch, setFilterSwitch] = useState([false]);
+  const [filterSwitch] = useState([false]);
   const clicked_user = useSelector(state => state.friends.clicked_user_data);
 
     useEffect(() => {
@@ -73,13 +73,13 @@ const FriendFinderContainer = props => {
   }
 
   const handleFilterChangeFetch = () => {
-        if (filterSwitch[0] === false) {
+        if (filterSwitch[0] === true) {
           api.matchedUsers
-            .getMatchingUsersFromGreatest(selectedInterests)
+            .getMatchingUsersFromLeast(selectedInterests)
             .then(resp => createFriendCards(resp.users));
         } else {
           api.matchedUsers
-            .getMatchingUsersFromLeast(selectedInterests)
+            .getMatchingUsersFromGreatest(selectedInterests)
             .then(resp => createFriendCards(resp.users));
         }
   }
@@ -109,7 +109,7 @@ const FriendFinderContainer = props => {
   const handleFirstFetch = (interest, id) => {
     api.matchedUsers.getMatchingUsersFromGreatest(interest)
       .then(resp => {
-      createFriendCards(resp.users, id);
+        createFriendCards(resp.users, id);
     })
   }
   const handleUserInterests = () => {
@@ -123,8 +123,7 @@ const FriendFinderContainer = props => {
   const handleFetchForFilteredUsers = e => {
     e.persist()
     handleToggleBetweenFilterButtons(e.target.id)
-    console.log(selectedInterests)
-    if (filterSwitch === false) {
+    if (filterSwitch[0] === false) {
           api.matchedUsers
             .getMatchingUsersFromGreatest(selectedInterests)
             .then(resp => createFriendCards(resp.users));
