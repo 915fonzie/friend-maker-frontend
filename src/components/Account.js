@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { api } from "../services/api";
-import MultiSelectDropdown from "./MultiSelectDropdown";
-import { interests } from "./Interests";
+// import RefactoredDropdown from "./RefactoredDropdown";
+import MultiSelectDropDown from './MultiSelectDropdown'
+import {interests} from './Interests'
 import "./SignUp.css";
 
 const Account = props => {
-    const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
+  const [selectedInterests, setSelectedInterests] = useState([]);
+  const [userId, setUserId] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [bio, setBio] = useState("");
+  const [friendBio, setFriendBio] = useState("");
 
     useEffect(() => {
       if (token) {
@@ -19,7 +29,7 @@ const Account = props => {
               api.getUserData
                 .getCurrentUserData(user.id)
                 .then(user => {
-                  console.log(user);
+                  setSelectedInterests(user.interest_list);
                   setUserId(user.id);
                   setUsername(user.username);
                   setFirstName(user.first_name);
@@ -27,7 +37,6 @@ const Account = props => {
                   setEmail(user.email);
                   setBio(user.bio);
                   setFriendBio(user.ideal_friend_bio);
-                  setSelectedInterests(user.interest_list);
                 })
             }
         });
@@ -36,17 +45,6 @@ const Account = props => {
       }
     }, [props, token]);
 
-    const [userId, setUserId] = useState('');
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [bio, setBio] = useState("");
-    const [friendBio, setFriendBio] = useState("");
-    const [selectedInterests, setSelectedInterests] = useState("");
-
-    const dispatch = useDispatch();
 
     const handleUsernameChange = e => {
       setUsername(e.target.value);
@@ -74,12 +72,10 @@ const Account = props => {
       setFriendBio(e.target.value);
     };
 
-    console.log(selectedInterests);
 
     const handleSubmit = async e => {
       e.preventDefault();
       let interest_list = selectedInterests.join(", ");
-      console.log(interest_list);
       await api.updateUser.updateUserAccount({
         id: userId,
         first_name: firstName,
@@ -91,6 +87,7 @@ const Account = props => {
         ideal_friend_bio: friendBio,
         interest_list: interest_list
       });
+      props.history.push('/search-for-friends')
     };
 
     const handleSelectChange = selectedOption => {
@@ -168,10 +165,10 @@ const Account = props => {
                 />
               </div>
               <div className="uk-margin">
-                <MultiSelectDropdown
+                <MultiSelectDropDown
                   options={interests}
-                                onSelectOptions={handleSelectChange}
-                                checked={selectedInterests}
+                  onSelectOptions={handleSelectChange}
+                  checked={selectedInterests}
                 />
               </div>
               <div className="uk-margin">
