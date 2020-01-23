@@ -17,8 +17,13 @@ export class MultiSelectDropDown extends Component {
     });
   }
 
-  componentWillReceiveProps = ({ checked }) => {
-    this.setState({ checked: checked });
+  static getDerivedStateFromProps = ({ checked }) => {
+    if (checked) {
+      return {
+        checked: checked
+      }
+    }
+    return null;
   };
   
   removeChip(value) {
@@ -64,7 +69,8 @@ export class MultiSelectDropDown extends Component {
       ? this.state.checked.map((data, index) => (
           <div className="chip-body" key={index}>
             <p className="chip-text">{data}</p>
-            <button
+          <button
+              type="button"
               className="chip-close"
               onClick={e => this.removeChip(data)}
             >
@@ -101,6 +107,7 @@ export class MultiSelectDropDown extends Component {
       <div className="multiSelect">
         <div className="chip">{this.returnChip()}</div>
         <input
+          autoComplete="off"
           type="text"
           name="Search"
           placeholder="Search Interests"

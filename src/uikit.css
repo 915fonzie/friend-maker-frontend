@@ -1967,6 +1967,7 @@ select.uk-form-width-xsmall {
  */
 .uk-button-default {
   background-color: transparent;
+  border: 1px solid #ccc;
   color: #333;
 }
 /* Hover + Focus */

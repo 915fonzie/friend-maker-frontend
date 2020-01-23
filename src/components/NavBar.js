@@ -85,7 +85,7 @@ const NavBar = () => {
   }
 
     return (
-      <div className="uk-margin-small-top uk-flex">
+      <div className="uk-margin-small-top uk-flex" data-uk-sticky>
         <button className="uk-button uk-button-secondary uk-light" data-uk-toggle="target: #offcanvas-slide">
           <span data-uk-navbar-toggle-icon></span>
           <span className="uk-margin-small-left">Menu</span>

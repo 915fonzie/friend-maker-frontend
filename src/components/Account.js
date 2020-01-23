@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { api } from "../services/api";
-// import RefactoredDropdown from "./RefactoredDropdown";
 import MultiSelectDropDown from './MultiSelectDropdown'
 import {interests} from './Interests'
 import "./SignUp.css";
@@ -71,10 +70,15 @@ const Account = props => {
     const handleFriendBioChange = e => {
       setFriendBio(e.target.value);
     };
+  
+    const handleSelectChange = selectedOption => {
+        setSelectedInterests(selectedOption);
+    };
 
 
     const handleSubmit = async e => {
       e.preventDefault();
+      console.log("its submitting for some reason")
       let interest_list = selectedInterests.join(", ");
       await api.updateUser.updateUserAccount({
         id: userId,
@@ -90,9 +94,7 @@ const Account = props => {
       props.history.push('/search-for-friends')
     };
 
-    const handleSelectChange = selectedOption => {
-      setSelectedInterests(selectedOption);
-    };
+
 
     if (!token) {
       return null;
