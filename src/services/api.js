@@ -73,7 +73,8 @@ const updateUserAccount = data => {
         password: data.password,
         email: data.email,
         bio: data.bio,
-        ideal_friend_bio: data.ideal_friend_bio,
+          ideal_friend_bio: data.ideal_friend_bio,
+        avatar_url: data.avatar_url,
         interest_list: data.interest_list
       })
     }).then(resp => resp.json());

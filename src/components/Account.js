@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { api } from "../services/api";
 import MultiSelectDropDown from './MultiSelectDropdown'
-import {interests} from './Interests'
+import { interests } from './Interests'
+import { avatars }  from './Avatars'
+import { motion } from 'framer-motion'
 import "./SignUp.css";
 
 const Account = props => {
@@ -16,6 +17,7 @@ const Account = props => {
   const [email, setEmail] = useState("");
   const [bio, setBio] = useState("");
   const [friendBio, setFriendBio] = useState("");
+  const [avatar, setAvatar] = useState({avatarUrl: ""})
 
     useEffect(() => {
       if (token) {
@@ -36,6 +38,7 @@ const Account = props => {
                   setEmail(user.email);
                   setBio(user.bio);
                   setFriendBio(user.ideal_friend_bio);
+                  setAvatar({avatarUrl: user.avatar_url})
                 })
             }
         });
@@ -74,12 +77,57 @@ const Account = props => {
     const handleSelectChange = selectedOption => {
         setSelectedInterests(selectedOption);
     };
+  
+    const returnAvatar = () => {
+      if (avatar.avatarUrl !== "") {
+        return (
+          <img
+            className="uk-inline uk-card uk-card-default uk-margin-bottom"
+            src={avatar.avatarUrl}
+            style={{ maxWidth: "15vh" }}
+          ></img>
+        );
+      }
+      console.log("initial render");
+      return null;
+    };
+
+    const handleAddingAvatar = (data, condition) => {
+      if (condition) {
+        setAvatar({ avatarUrl: data });
+      } else {
+        setAvatar({ avatarUrl: "" });
+      }
+    };
+
+    const handleSelectAvatar = e => {
+      e.persist();
+      handleAddingAvatar(e.target.src, true);
+    };
+
+    const handleShowingAvatars = () => {
+      let allAvatars = [];
+      for (let i = 0; i < avatars.length; i++) {
+        allAvatars.push(
+          <motion.img
+            className="uk-card uk-card-default uk-margin-left uk-margin-bottom"
+            src={avatars[i].url}
+            key={i}
+            style={{ maxWidth: "10vh" }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={handleSelectAvatar}
+          ></motion.img>
+        );
+      }
+      return allAvatars;
+    };
 
 
     const handleSubmit = async e => {
       e.preventDefault();
-      console.log("its submitting for some reason")
       let interest_list = selectedInterests.join(", ");
+      console.log(avatar.avatarUrl)
       await api.updateUser.updateUserAccount({
         id: userId,
         first_name: firstName,
@@ -89,6 +137,7 @@ const Account = props => {
         password: password,
         bio: bio,
         ideal_friend_bio: friendBio,
+        avatar_url: avatar.avatarUrl,
         interest_list: interest_list
       });
       props.history.push('/search-for-friends')
@@ -172,6 +221,22 @@ const Account = props => {
                   onSelectOptions={handleSelectChange}
                   checked={selectedInterests}
                 />
+              </div>
+              <div>
+                <div>{returnAvatar()}</div>
+                <button className="uk-button uk-button-default" type="button">
+                  Choose Avatar
+                </button>
+                <div
+                  className="uk-width-large"
+                  data-uk-drop="mode: hover; pos: top-right"
+                >
+                  <div
+                    className="uk-card uk-card-body uk-card-default"
+                  >
+                    {handleShowingAvatars()}
+                  </div>
+                </div>
               </div>
               <div className="uk-margin">
                 <input className="uk-button uk-button-primary" type="submit" />

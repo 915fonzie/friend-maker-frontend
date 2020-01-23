@@ -63,8 +63,7 @@ const SignUp = props => {
     const handleSubmit = async e => {
         e.preventDefault();
         let interest_list = selectedInterests.join(", ")
-      console.log(selectedInterests.length)
-
+        console.log(avatar.avatarUrl)
       if (selectedInterests.length >= 5) {
                 await api.createUser.signup({
                   first_name: firstName,
@@ -74,7 +73,7 @@ const SignUp = props => {
                   password: password,
                   bio: bio,
                   ideal_friend_bio: friendBio,
-                  avatarUrl: avatar.avatarUrl,
+                  avatar_url: avatar.avatarUrl,
                   interest_list: interest_list
                 });
 
@@ -153,7 +152,7 @@ Please Choose at least 5 interests  </p>
         return null;
     }
     return (
-      <div className="uk-container uk-container-large">
+      <div className="uk-container">
         <div className="uk-card uk-card-default">
           <form onSubmit={handleSubmit}>
             <fieldset className="uk-fieldset uk-margin-top">
@@ -232,7 +231,7 @@ Please Choose at least 5 interests  </p>
                   Choose Avatar
                 </button>
                 <div className="uk-width-large" data-uk-drop="mode: hover; pos: top-right">
-                  <div className="uk-card uk-card-body uk-card-default" id="avatars">
+                  <div className="uk-card uk-card-body uk-card-default">
                     {handleShowingAvatars()}
                   </div>
                 </div>

@@ -2,7 +2,7 @@ import React from 'react'
 
 const FriendModal = props => {
 
-    const { interest_list, username, bio, ideal_friend_bio } = props.userData.user
+    const { interest_list, username, bio, ideal_friend_bio, avatar_url } = props.userData.user
 
         const handleInterestsLabels = () => {
           let allInterests = [];
@@ -27,6 +27,12 @@ const FriendModal = props => {
             type="button"
             data-uk-close
           ></button>
+          <img
+            className="uk-img uk-card uk-card-default"
+            src={avatar_url}
+            style={{ maxWidth: "15vh" }}
+            data-uk-img
+          ></img>
           <h1>{username}</h1>
           <div>{handleInterestsLabels()}</div>
           <p>Bio: {bio}</p>
