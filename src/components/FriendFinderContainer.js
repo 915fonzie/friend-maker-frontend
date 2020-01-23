@@ -150,7 +150,6 @@ const FriendFinderContainer = props => {
     if (userInterests[id].clicked === "uk-button-default") {
       userInterests[id].clicked = "uk-button-primary"
       selectedInterests.push(userInterests[id].interest)
-      // setSelectedInterests([...selectedInterests, userInterests[id].interest])
     }
     else{
       userInterests[id].clicked = "uk-button-default"

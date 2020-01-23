@@ -4,11 +4,13 @@ import { api } from "../services/api";
 import { SIGN_IN as SignIn } from "../actions/auth";
 import MultiSelectDropdown from "./MultiSelectDropdown"
 import { interests } from "./Interests"
+import { avatars } from './Avatars'
+import { motion } from 'framer-motion'
 import './SignUp.css'
 
 const SignUp = props => {
     const token = localStorage.getItem("token");
-
+  const [avatar, setAvatar ] = useState({ avatarUrl: "" });
     useEffect(() => {
         if (token) {
             api.auth.getCurrentUser().then(user => {
@@ -18,7 +20,7 @@ const SignUp = props => {
                 }
             }); 
         }
-    }, [props, token]);
+    }, [props, token, avatar]);
     
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -28,6 +30,7 @@ const SignUp = props => {
     const [bio, setBio] = useState("");
     const [friendBio, setFriendBio] = useState("");
     const [selectedInterests, setSelectedInterests] = useState("");
+
 
     const dispatch = useDispatch();
 
@@ -60,8 +63,7 @@ const SignUp = props => {
     const handleSubmit = async e => {
         e.preventDefault();
         let interest_list = selectedInterests.join(", ")
-      console.log(selectedInterests.length)
-
+        console.log(avatar.avatarUrl)
       if (selectedInterests.length >= 5) {
                 await api.createUser.signup({
                   first_name: firstName,
@@ -71,6 +73,7 @@ const SignUp = props => {
                   password: password,
                   bio: bio,
                   ideal_friend_bio: friendBio,
+                  avatar_url: avatar.avatarUrl,
                   interest_list: interest_list
                 });
 
@@ -97,15 +100,62 @@ Please Choose at least 5 interests  </p>
     const handleSelectChange = selectedOption => {
         setSelectedInterests(selectedOption)
     }
+  
+  const returnAvatar = () => {
+    if (avatar.avatarUrl !== "") {
+      console.log("it hits")
+      return (
+        <img className="uk-inline uk-card uk-card-default uk-margin-bottom" src={avatar.avatarUrl} style={{maxWidth: "15vh"}}>
+        </img>
+      );
+    }
+    console.log("initial render")
+    return null;
+  }
+  
+  
+  const handleAddingAvatar = (data, condition) => {
+    if (condition) {
+      setAvatar({ avatarUrl: data });
+    } else {
+      setAvatar({ avatarUrl: "" });
+    }
+  }
+  
+  const handleSelectAvatar = e => {
+    e.persist()
+    handleAddingAvatar(e.target.src, true)
+  }
+  
+  const handleShowingAvatars = () => {
+
+    let allAvatars = []
+    for (let i = 0; i < avatars.length; i++){
+      allAvatars.push(
+        <motion.img
+          className="uk-card uk-card-default uk-margin-left uk-margin-bottom"
+          src={avatars[i].url}
+          key={i}
+          style={{ maxWidth: "10vh" }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={handleSelectAvatar}
+        ></motion.img>
+      );
+    }
+    return (
+      allAvatars
+    );
+  }
 
     if (token) {
         return null;
     }
     return (
-      <div className="uk-container uk-container-large">
-        <div className="uk-card uk-card-default uk-card-large">
+      <div className="uk-container">
+        <div className="uk-card uk-card-default">
           <form onSubmit={handleSubmit}>
-            <fieldset className="uk-fieldset uk-margin-top uk-margin">
+            <fieldset className="uk-fieldset uk-margin-top">
               <legend className="legend uk-h1 uk-text-center">Sign Up</legend>
               <div className="uk-margin">
                 <input
@@ -157,7 +207,7 @@ Please Choose at least 5 interests  </p>
                   className="uk-textarea"
                   value={bio}
                   onChange={handleBioChange}
-                  placeholder="Tell us about yourself (Optional)"
+                  placeholder="Tell us about yourself (Optional but Recommended)"
                 />
               </div>
               <div className="uk-margin">
@@ -171,10 +221,20 @@ Please Choose at least 5 interests  </p>
               <div className="uk-margin">
                 <MultiSelectDropdown
                   options={interests}
-                                onSelectOptions={handleSelectChange}
-                                checked={[]}
+                  onSelectOptions={handleSelectChange}
                 />
                 <p>*Must choose at least 5 interests</p>
+              </div>
+              <div>
+                <div>{returnAvatar()}</div>
+                <button className="uk-button uk-button-default" type="button">
+                  Choose Avatar
+                </button>
+                <div className="uk-width-large" data-uk-drop="mode: hover; pos: top-right">
+                  <div className="uk-card uk-card-body uk-card-default">
+                    {handleShowingAvatars()}
+                  </div>
+                </div>
               </div>
               <div className="uk-margin">
                 <input className="uk-button uk-button-primary" type="submit" />

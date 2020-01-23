@@ -3,16 +3,16 @@
 	padding: .375rem .75rem;
 	font-size: 1rem;
 	line-height: 1.5;
-	color: #495057;
+	color: #999;
 	background-color: #fff;
 	background-clip: padding-box;
-	border: 1px solid #ced4da;
+	border: 1px solid #e5e5e5;
 	border-radius: 1.5rem;
 	transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 	margin: 8px 0 0 0;
 }
 .input-box:focus {
-	color: #495057;
+	color: #666;
 	background-color: #fff;
 	border-color: #80bdff;
 	outline: 0;
@@ -28,6 +28,7 @@
 	border-left: 1px solid #ccc;
 	border-right: 1px solid #ccc;
 	border-bottom: 1px solid #ccc;
+	border-radius: 1.5rem;
 	margin-top: 0;
 	list-style: none;
 	padding-inline-start: 0;
@@ -46,7 +47,7 @@
 	padding-left: 35px;
 	margin-bottom: 12px;
 	cursor: pointer;
-	font-size: 17px;
+	font-size: 19px;
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
@@ -123,12 +124,12 @@
 	flex-grow: 1;
 }
 .chip-body {
-	height: 20px;
+	height: 25px;
 	min-width: 55px;
 	width: auto;
 	background-color: #2196f3;
 	color: #ffffff;
-	padding: 5px;
+	padding: 3px;
 	text-align: center;
 	border-radius: 1.5rem;
 	display: inline-block;
@@ -136,18 +137,18 @@
 	margin-bottom: 3px;
 }
 .chip-text {
-	margin: 0;
+	margin-left: 2;
 	display: inline;
 }
 .chip-close {
 	background: none;
 	color: inherit;
 	border: none;
-	padding: 0;
+	padding: 1;
 	font: inherit;
 	cursor: pointer;
 	outline: inherit;
 	float: right;
 	cursor: pointer;
-	margin-left: 3px;
+	margin-left: 0px;
 }

@@ -31,7 +31,15 @@ const FriendFinderCard = props => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.9 }}
         >
-          <p>{props.user.username}</p>
+          <div className="uk-flex">
+            <img
+              className="uk-img uk-card uk-card-default"
+              src={props.user.avatar_url}
+              style={{ maxWidth: "15vh" }}
+              data-uk-img
+            ></img>
+            <h3 className="uk-margin-left">{props.user.username}</h3>
+          </div>
           <p>Interests:</p>
           <div className="uk-margin">{handleInterestsLabels()}</div>
         </motion.div>
