@@ -63,7 +63,6 @@ const SignUp = props => {
     const handleSubmit = async e => {
         e.preventDefault();
         let interest_list = selectedInterests.join(", ")
-        console.log(avatar.avatarUrl)
       if (selectedInterests.length >= 5) {
                 await api.createUser.signup({
                   first_name: firstName,
@@ -81,7 +80,6 @@ const SignUp = props => {
                   if (resp.error) {
                     console.log(resp.error);
                   } else {
-                    console.log(resp);
                     dispatch(SignIn(resp));
                     localStorage.setItem("token", resp.jwt);
                     props.history.push("/search-for-friends");
@@ -103,13 +101,11 @@ Please Choose at least 5 interests  </p>
   
   const returnAvatar = () => {
     if (avatar.avatarUrl !== "") {
-      console.log("it hits")
       return (
         <img className="uk-inline uk-card uk-card-default uk-margin-bottom" src={avatar.avatarUrl} style={{maxWidth: "15vh"}}>
         </img>
       );
     }
-    console.log("initial render")
     return null;
   }
   

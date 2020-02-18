@@ -16,7 +16,6 @@ const Login = props => {
         if(token) {
             api.auth.getCurrentUser().then(user => {
               if (!user.error) {
-                  console.log("it hits")
                     props.history.push("/search-for-friends");
                     dispatch(SignIn(user));
               }
@@ -43,7 +42,6 @@ const Login = props => {
                     console.log(resp.error)
                 }
                 else {
-                    console.log("it hits where it should")
                   dispatch(SignIn(resp));
                   localStorage.setItem("token", resp.jwt)
                 }

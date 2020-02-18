@@ -88,7 +88,6 @@ const Account = props => {
           ></img>
         );
       }
-      console.log("initial render");
       return null;
     };
 
@@ -127,7 +126,6 @@ const Account = props => {
     const handleSubmit = async e => {
       e.preventDefault();
       let interest_list = selectedInterests.join(", ");
-      console.log(avatar.avatarUrl)
       await api.updateUser.updateUserAccount({
         id: userId,
         first_name: firstName,
