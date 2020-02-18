@@ -149,7 +149,7 @@ const Account = props => {
       return null;
     }
     return (
-      <div className="uk-container uk-container-large">
+      <div className="uk-container">
         <div className="uk-card uk-card-default uk-card-large">
           <form onSubmit={handleSubmit}>
             <fieldset className="uk-fieldset uk-margin-top uk-margin">

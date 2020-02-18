@@ -300,6 +300,10 @@ export const interests = [
     value: "Crossword Puzzles"
   },
   {
+    label: "D&D",
+    value: "D&D"
+  },
+  {
     label: "Dancing",
     value: "Dancing"
   },
