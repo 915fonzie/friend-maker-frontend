@@ -1,4 +1,4 @@
-const API_ROOT = `http://friend-connect-project.herokuapp.com/api/v1`;
+const API_ROOT = `https://friend-connect-project.herokuapp.com/api/v1`;
 const token = () => localStorage.getItem('token');
 
 const headers = () => ({
